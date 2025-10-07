@@ -2,7 +2,7 @@ Polizeiliche Datenbank - Fiktive Demonstration
 
 Eine fiktive Web-Anwendung zur Simulation einer polizeilichen Datenbank, entwickelt für GitHub Pages.
 
-⚠️ Wichtiger Hinweis
+**⚠️ Wichtiger Hinweis**
 
 Dies ist eine rein fiktive Demonstration!
 
@@ -10,7 +10,9 @@ Keine echte Datenbank-Funktionalität
 Keine Verbindung zu echten Polizeisystemen
 Ausschließlich zu Demonstrations- und Lernzwecken
 Enthält simulierte Testdaten
-🚀 Funktionen
+
+
+**🚀 Funktionen**
 
 Sicherer Login-Bereich (simuliert)
 Erweiterte Suchfunktionen
@@ -32,7 +34,8 @@ polizei-datenbank-demo/
     │   └── style.css      # Stylesheets (optional)
     └── images/            # Bilder und Icons
 ```
-🛠️ Installation und Verwendung
+
+**🛠️ Installation und Verwendung**
 1. Repository klonen
 ```bash
 git clone https://github.com/ihr-benutzername/polizei-datenbank-demo.git
@@ -53,7 +56,7 @@ python -m http.server 8000
 ```
 Dann http://localhost:8000 im Browser öffnen
 
-🔒 Login-Daten (Simulation)
+**🔒 Login-Daten (Simulation)**
 
 Für den Demo-Zugang einfach:
 
@@ -62,21 +65,21 @@ Beliebiges Passwort eingeben
 Eine Abteilung auswählen
 Auf "Anmelden" klicken
 
-🎯 Verwendete Technologien
+**🎯 Verwendete Technologien**
 
 HTML5 - Struktur der Webseite
 CSS3 - Styling und Responsive Design
 JavaScript - Interaktive Funktionen
 GitHub Pages - Hosting-Plattform
 
-📋 Simulierte Datenkategorien
+**📋 Simulierte Datenkategorien**
 
 Personendaten - Basisinformationen
 Aktive Fälle - Laufende Ermittlungen
 Archivierte Fälle - Abgeschlossene Verfahren
 Fahndung - Aktive Suchausschreibungen
 
-🔐 Sicherheitshinweise (Fiktiv)
+**🔐 Sicherheitshinweise (Fiktiv)**
 
 Diese Demo-Anwendung simuliert Sicherheitsmaßnahmen:
 
@@ -85,7 +88,7 @@ Protokollierung aller Zugriffe
 Datenschutzkonforme Darstellung
 Vertraulichkeitshinweise
 
-📄 Lizenz
+**📄 Lizenz**
 
 Dieses Projekt steht unter der Creative Commons Attribution-NonCommercial 4.0 International License.
 
@@ -100,7 +103,7 @@ Unter folgenden Bedingungen:
 - Keine kommerzielle Nutzung
 - Weitergabe unter gleichen Bedingungen
 
-⚖️ Rechtlicher Hinweis
+**⚖️ Rechtlicher Hinweis**
 
 Diese Anwendung ist eine fiktive Demonstration und hat keine Verbindung zu realen Polizeisystemen. Sie dient ausschließlich:
 
@@ -109,18 +112,18 @@ Technischen Demonstrationen
 Portfolio-Präsentationen
 Die Verwendung von Behörden-Bezeichnungen und das Design dienen der realistischen Darstellung für Demonstrationszwecke.
 
-🐛 Bekannte Einschränkungen
+**🐛 Bekannte Einschränkungen**
 
 Keine echte Datenbank-Anbindung
 Statische Testdaten
 Client-seitige "Sicherheit"
 Keine persistente Datenspeicherung
 
-🤝 Beitragende
+**🤝 Beitragende**
 
 diecrewls22 - Entwicklung und Design
 
-📞 Kontakt
+**📞 Kontakt**
 
 Bei Fragen zu dieser Demo-Anwendung:
 
