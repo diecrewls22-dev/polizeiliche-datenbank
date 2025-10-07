@@ -1,0 +1,399 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GitHub Polizeiliche Datenbank - Interner Zugang</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Arial', sans-serif;
+        }
+
+        body {
+            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+            min-height: 100vh;
+            color: #333;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .header {
+            background: #1a237e;
+            color: white;
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 30px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.3);
+        }
+
+        .header h1 {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .header h1::before {
+            content: "🔒";
+            font-size: 2em;
+        }
+
+        .login-section {
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            margin-bottom: 30px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+            color: #1a237e;
+        }
+
+        input, select {
+            width: 100%;
+            padding: 10px;
+            border: 2px solid #ddd;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+
+        button {
+            background: #1a237e;
+            color: white;
+            padding: 12px 30px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: bold;
+        }
+
+        button:hover {
+            background: #283593;
+        }
+
+        .database-interface {
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            display: none;
+        }
+
+        .search-section {
+            background: #f5f5f5;
+            padding: 20px;
+            border-radius: 5px;
+            margin-bottom: 20px;
+        }
+
+        .search-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr auto;
+            gap: 15px;
+            align-items: end;
+        }
+
+        .results-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        .results-table th,
+        .results-table td {
+            padding: 12px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+
+        .results-table th {
+            background: #1a237e;
+            color: white;
+        }
+
+        .results-table tr:hover {
+            background: #f5f5f5;
+        }
+
+        .security-notice {
+            background: #fff3cd;
+            border: 1px solid #ffeaa7;
+            padding: 15px;
+            border-radius: 5px;
+            margin-top: 20px;
+            color: #856404;
+        }
+
+        .status-indicator {
+            display: inline-block;
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            margin-right: 5px;
+        }
+
+        .status-active {
+            background: #28a745;
+        }
+
+        .status-inactive {
+            background: #dc3545;
+        }
+
+        .footer {
+            text-align: center;
+            margin-top: 30px;
+            color: white;
+            opacity: 0.8;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>Bundespolizei - Internes Datenbanksystem</h1>
+            <p>Zugang nur für autorisiertes Personal</p>
+        </div>
+
+        <div class="login-section" id="loginSection">
+            <h2>Anmeldung</h2>
+            <div class="form-group">
+                <label for="badgeNumber">Dienstnummer:</label>
+                <input type="text" id="badgeNumber" placeholder="BD-XXXXX">
+            </div>
+            <div class="form-group">
+                <label for="password">Passwort:</label>
+                <input type="password" id="password" placeholder="••••••••">
+            </div>
+            <div class="form-group">
+                <label for="department">Abteilung:</label>
+                <select id="department">
+                    <option value="">Bitte wählen</option>
+                    <option value="kripo">Kriminalpolizei</option>
+                    <option value="streife">Streifendienst</option>
+                    <option value="ermittlung">Ermittlungen</option>
+                    <option value="leitung">Führungsebene</option>
+                </select>
+            </div>
+            <button onclick="login()">Anmelden</button>
+            
+            <div class="security-notice">
+                <strong>Sicherheitshinweis:</strong> Unbefugter Zugriff ist strafbar gemäß §202a StGB.
+                Alle Zugriffe werden protokolliert.
+            </div>
+        </div>
+
+        <div class="database-interface" id="databaseInterface">
+            <h2>Personen- und Fall-Datenbank</h2>
+            
+            <div class="search-section">
+                <h3>Erweiterte Suche</h3>
+                <div class="search-row">
+                    <div class="form-group">
+                        <label for="searchName">Name:</label>
+                        <input type="text" id="searchName" placeholder="Nachname, Vorname">
+                    </div>
+                    <div class="form-group">
+                        <label for="searchAK">Aktenzeichen:</label>
+                        <input type="text" id="searchAK" placeholder="AZ-XXXX-XXXX">
+                    </div>
+                    <div class="form-group">
+                        <label for="searchCategory">Kategorie:</label>
+                        <select id="searchCategory">
+                            <option value="">Alle Kategorien</option>
+                            <option value="personen">Personendaten</option>
+                            <option value="faelle">Aktive Fälle</option>
+                            <option value="archiv">Archivierte Fälle</option>
+                            <option value="fahndung">Fahndung</option>
+                        </select>
+                    </div>
+                    <button onclick="searchDatabase()">Suchen</button>
+                </div>
+            </div>
+
+            <div class="results">
+                <table class="results-table">
+                    <thead>
+                        <tr>
+                            <th>Aktenzeichen</th>
+                            <th>Name</th>
+                            <th>Geburtsdatum</th>
+                            <th>Status</th>
+                            <th>Letzte Aktualisierung</th>
+                            <th>Zuständig</th>
+                        </tr>
+                    </thead>
+                    <tbody id="resultsBody">
+                        <!-- Ergebnisse werden hier dynamisch eingefügt -->
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="security-notice">
+                <strong>Vertraulichkeit:</strong> Diese Informationen unterliegen dem Datenschutz 
+                und dürfen nur zu dienstlichen Zwecken verwendet werden.
+            </div>
+        </div>
+
+        <div class="footer">
+            <p>Bundespolizei Deutschland • Secure Database System v2.4 • © 2024</p>
+            <p>Nur für den internen Dienstgebrauch</p>
+        </div>
+    </div>
+
+    <script>
+        // Simulierte Datenbankeinträge
+        const sampleData = [
+            {
+                aktenzeichen: "AZ-2024-1587",
+                name: "Müller, Hans",
+                geburtsdatum: "15.03.1980",
+                status: "Aktiv",
+                aktualisierung: "24.05.2024",
+                zustaendig: "KriPo Berlin"
+            },
+            {
+                aktenzeichen: "AZ-2024-1623",
+                name: "Schmidt, Petra",
+                geburtsdatum: "22.07.1975",
+                status: "Archiviert",
+                aktualisierung: "15.05.2024",
+                zustaendig: "Erm. Dresden"
+            },
+            {
+                aktenzeichen: "AZ-2024-1498",
+                name: "Weber, Thomas",
+                geburtsdatum: "03.11.1992",
+                status: "Fahndung",
+                aktualisierung: "28.05.2024",
+                zustaendig: "Fahndung Bund"
+            },
+            {
+                aktenzeichen: "AZ-2024-1712",
+                name: "Klein, Sabine",
+                geburtsdatum: "18.09.1988",
+                status: "Aktiv",
+                aktualisierung: "29.05.2024",
+                zustaendig: "KriPo München"
+            }
+        ];
+
+        function login() {
+            const badgeNumber = document.getElementById('badgeNumber').value;
+            const password = document.getElementById('password').value;
+            const department = document.getElementById('department').value;
+
+            if (badgeNumber && password && department) {
+                document.getElementById('loginSection').style.display = 'none';
+                document.getElementById('databaseInterface').style.display = 'block';
+                loadSampleData();
+            } else {
+                alert('Bitte füllen Sie alle Felder aus.');
+            }
+        }
+
+        function loadSampleData() {
+            const resultsBody = document.getElementById('resultsBody');
+            resultsBody.innerHTML = '';
+
+            sampleData.forEach(entry => {
+                const row = document.createElement('tr');
+                const statusClass = entry.status === 'Aktiv' || entry.status === 'Fahndung' ? 'status-active' : 'status-inactive';
+                
+                row.innerHTML = `
+                    <td>${entry.aktenzeichen}</td>
+                    <td>${entry.name}</td>
+                    <td>${entry.geburtsdatum}</td>
+                    <td><span class="status-indicator ${statusClass}"></span>${entry.status}</td>
+                    <td>${entry.aktualisierung}</td>
+                    <td>${entry.zustaendig}</td>
+                `;
+                resultsBody.appendChild(row);
+            });
+        }
+
+        function searchDatabase() {
+            const searchName = document.getElementById('searchName').value.toLowerCase();
+            const searchAK = document.getElementById('searchAK').value.toUpperCase();
+            const category = document.getElementById('searchCategory').value;
+
+            let filteredData = sampleData;
+
+            if (searchName) {
+                filteredData = filteredData.filter(entry => 
+                    entry.name.toLowerCase().includes(searchName)
+                );
+            }
+
+            if (searchAK) {
+                filteredData = filteredData.filter(entry => 
+                    entry.aktenzeichen.includes(searchAK)
+                );
+            }
+
+            if (category) {
+                if (category === 'fahndung') {
+                    filteredData = filteredData.filter(entry => entry.status === 'Fahndung');
+                } else if (category === 'archiv') {
+                    filteredData = filteredData.filter(entry => entry.status === 'Archiviert');
+                } else if (category === 'faelle') {
+                    filteredData = filteredData.filter(entry => entry.status === 'Aktiv');
+                }
+            }
+
+            displayResults(filteredData);
+        }
+
+        function displayResults(data) {
+            const resultsBody = document.getElementById('resultsBody');
+            resultsBody.innerHTML = '';
+
+            if (data.length === 0) {
+                resultsBody.innerHTML = `
+                    <tr>
+                        <td colspan="6" style="text-align: center; color: #666;">
+                            Keine Treffer gefunden
+                        </td>
+                    </tr>
+                `;
+                return;
+            }
+
+            data.forEach(entry => {
+                const row = document.createElement('tr');
+                const statusClass = entry.status === 'Aktiv' || entry.status === 'Fahndung' ? 'status-active' : 'status-inactive';
+                
+                row.innerHTML = `
+                    <td>${entry.aktenzeichen}</td>
+                    <td>${entry.name}</td>
+                    <td>${entry.geburtsdatum}</td>
+                    <td><span class="status-indicator ${statusClass}"></span>${entry.status}</td>
+                    <td>${entry.aktualisierung}</td>
+                    <td>${entry.zustaendig}</td>
+                `;
+                resultsBody.appendChild(row);
+            });
+        }
+
+        // Initial Daten laden
+        window.addEventListener('load', function() {
+            console.log('Polizeiliche Datenbank-System geladen - Zugriff protokolliert');
+        });
+    </script>
+</body>
+</html>
