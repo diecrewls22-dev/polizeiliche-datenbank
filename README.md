@@ -1,9 +1,5 @@
 Polizeiliche Datenbank - Fiktive Demonstration
 
-[https://img.shields.io/badge/GitHub-Pages-brightgreen]
-[https://img.shields.io/badge/Status-Fiktive_Demo-orange]
-[https://img.shields.io/badge/Lizenz-CC--BY--NC--4.0-lightgrey]
-
 Eine fiktive Web-Anwendung zur Simulation einer polizeilichen Datenbank, entwickelt für GitHub Pages.
 
 ⚠️ Wichtiger Hinweis
